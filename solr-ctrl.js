@@ -3,7 +3,7 @@ app.controller('solrCtrl', function($scope, solrService, rx) {
 	var totalRecords;
 	var start = 0;
 
-	$scope.autocomplete = '';
+	$scope.autocompleteTerm = '';
 	$scope.results = [];
 
 	function search(term) {
@@ -38,7 +38,7 @@ app.controller('solrCtrl', function($scope, solrService, rx) {
 	}
 	
 	$scope
-		.$toObservable('autocomplete')
+		.$toObservable('autocompleteTerm')
 		.debounce(300)
 		.map(function(data) { return data.newValue; })
 		.distinctUntilChanged()
