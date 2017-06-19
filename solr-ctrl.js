@@ -1,29 +1,22 @@
 app.controller('solrCtrl', function($scope, solrService, rx) {
 
-	var totalRecords;
+	const pageBy = 10;
 	var start = 0;
 
 	$scope.autocompleteTerm = '';
+	$scope.numFound = '';
 	$scope.results = [];
+	$scope.searchTerm = '';
 
-	function search(term) {
+	function search(term, start) {
 		var queryParams = {
 			q: term,
-			start: '0',
+			start: start,
 			rows: '10',
 			wt: 'json'
 		};
 
 		return solrService.search(queryParams);
-	}
-
-	function moreResults(term) {
-		var queryParams = {
-			q: term,
-			start: '0',
-			rows: '10',
-			wt: 'json'
-		};
 	}
 
 	function suggest(term) {
@@ -52,12 +45,10 @@ app.controller('solrCtrl', function($scope, solrService, rx) {
 		.$createObservableFunction('clickSearch')
 		.map(function(term) { return term.trim(); })
 		.map(function(term) { return term.replace(/"/g,''); })
-		.flatMapLatest(search)
+		.flatMapLatest(function(term) { return search(term, '0');})
 		.subscribe(function(results) {
-			$scope.results = $scope.results.concat(results);
+			$scope.results = results.docs;
+			$scope.numFound = results.numFound;
 			$scope.$apply();
 		});
-
-	$scope.
-		.$createObservableFunction('moreResults')
 });

@@ -4,9 +4,9 @@
 		<link href="search.css" rel="stylesheet" type="text/css" />
 
 		<script src="node_modules/angular/angular.js"></script>
-		<script src="node_modules/angular-async-filter/angular-async-filter.js"></script>
 		<script src="node_modules/rx/dist/rx.all.js"></script>
 		<script src="node_modules/rx-angular/dist/rx.angular.js"></script>
+		<script src="node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js"></script>
 		<script src="myApp.js"></script>
 		<script src="solr-service.js"></script>
 		<script src="solr-ctrl.js"></script>
@@ -40,8 +40,10 @@
 			</div>
 		</div>
 
+		<h4 ng-if="numFound">Records found: {{ numFound }}</h4>
+
 		<div>
-			<div ng-repeat="result in results">
+			<div ng-repeat="result in results" infinite-scroll="scrollSearch()">
 				{{ result.Item_Description }}
 				<ul>
 					<li>Item Num: {{ result.Item__ }}</li>

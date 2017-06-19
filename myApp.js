@@ -1,1 +1,1 @@
-var app = angular.module("solrApp", ['async','rx']);
+var app = angular.module("solrApp", ['infinite-scroll','rx']);

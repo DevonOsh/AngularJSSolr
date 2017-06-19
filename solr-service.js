@@ -10,7 +10,12 @@ app.service('solrService', ['$http','$sce', 'rx', function($http, $sce, rx) {
 						url: searchURL,
 						params: params
 					}))
-					.map(function(response) { return response.data.response.docs; });
+					.map(function(response) { 
+						return {
+							docs: response.data.response.docs,
+							numFound: response.data.response.numFound
+						}; 
+					});
 		},
 		suggest: function(params) {
 			return $http({
@@ -19,7 +24,7 @@ app.service('solrService', ['$http','$sce', 'rx', function($http, $sce, rx) {
 					params: params
 				})
 				.then(function(response) { 
-					return response.data.suggest.mySuggester[params.q].suggestions; 
+					return response.data.suggest.mySuggester[params.q].suggestions;
 				});
 				//.map(function(response) { return response.data.suggest.mySuggester[params.q]; })
 				//.map(function(suggestion) { return suggestion.suggestions; });
