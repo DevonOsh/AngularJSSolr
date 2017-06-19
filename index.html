@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="search.css" rel="stylesheet" type="text/css" />
+
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-async-filter/angular-async-filter.js"></script>
+		<script src="node_modules/rx/dist/rx.all.js"></script>
+		<script src="node_modules/rx-angular/dist/rx.angular.js"></script>
+		<script src="myApp.js"></script>
+		<script src="solr-service.js"></script>
+		<script src="solr-ctrl.js"></script>
+	</head>
+	<body ng-app="solrApp" ng-controller="solrCtrl">
+	<!--
+		<h3>The Initial Attempt</h3>
+		<input type="text" ng-model="query" id="query" />
+		<button id="search" ng-click="search()">Search</button>
+
+		<ul ngif="data">
+			<li ng-repeat="product in data">
+				{{ product.Item_Description[0] }}
+			</li>
+		</ul>
+	-->
+
+	<!--First Observable, uses Autocomplete directive
+		<h3>The Attempt w/Observables</h3>
+		<autocomplete></autocomplete>
+	-->
+
+		<h3>Second Observable Attempt</h3>
+		<h3>W/O Directive</h3>
+
+		<input id="search-box" ng-model="autocomplete" type="text" />
+
+		<div>
+			<div ng-repeat="suggestion in suggestions" class="search-result" ng-click="clickSearch(suggestion.term)">
+				{{ suggestion.term }}
+			</div>
+		</div>
+
+		<div>
+			<div ng-repeat="result in results">
+				{{ result.Item_Description }}
+				<ul>
+					<li>Item Num: {{ result.Item__ }}</li>
+					<li>MFG Item: {{ result.MFG_Item_ }}</li>
+					<li>Vend Item: {{ result.Vend_Item_ }}</li>
+					<li>Vendor: {{ result.Vendor__ }}</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
